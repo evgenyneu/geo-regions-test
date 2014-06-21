@@ -12,6 +12,7 @@
 		2BCB1F09195519C600065003 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BCB1F07195519C600065003 /* Main.storyboard */; };
 		2BCB1F0B195519C600065003 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BCB1F0A195519C600065003 /* Images.xcassets */; };
 		2BCB1F17195519C600065003 /* Geo_Regions_TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB1F16195519C600065003 /* Geo_Regions_TestTests.swift */; };
+		2BCB1F2119551BD600065003 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCB1F2019551BD600065003 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		2BCB1F10195519C600065003 /* Geo Regions TestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Geo Regions TestTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BCB1F15195519C600065003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BCB1F16195519C600065003 /* Geo_Regions_TestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geo_Regions_TestTests.swift; sourceTree = "<group>"; };
+		2BCB1F2019551BD600065003 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BCB1F2119551BD600065003 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +60,7 @@
 		2BCB1EF5195519C600065003 = {
 			isa = PBXGroup;
 			children = (
+				2BCB1F2019551BD600065003 /* MapKit.framework */,
 				2BCB1F00195519C600065003 /* Geo Regions Test */,
 				2BCB1F13195519C600065003 /* Geo Regions TestTests */,
 				2BCB1EFF195519C600065003 /* Products */,
@@ -277,7 +281,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -314,7 +318,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				METAL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
