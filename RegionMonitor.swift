@@ -9,16 +9,48 @@
 import Foundation
 import CoreLocation
 
-class RegionMonitor: NSObject, CLLocationManagerDelegate {
-  @lazy var locationManager = CLLocationManager()
+class RegionMonitor {
+  var regions = CLCircularRegion[]()
+  var log: Log!
+  var location: Location!
+  var monitoringStarted = false
 
-  func start() {
-    locationManager = CLLocationManager()
-    locationManager.delegate = self
+  init(_ log: Log, location: Location) {
+    self.log = log
+    self.location = location
   }
 
-  func monitorRegion(lat: Double, lon: Double, id: String) {
-    var region = createRegion(lat, lon: lon, id: id)
-    locationManager.startMonitoringForRegion(region)
+  func addRegion(center:CLLocationCoordinate2D, id: String) {
+    regions += createRegion(center, id: id)
+  }
+
+  func createRegion(center: CLLocationCoordinate2D, id: String) -> CLCircularRegion {
+    var region = CLCircularRegion(center: center,
+      radius: CLLocationDistance(50), identifier: id)
+
+    region.notifyOnEntry = true
+    region.notifyOnExit = true
+
+    return region
+  }
+
+  func startMonitoring() {
+    if monitoringStarted { return }
+    if !location.authorized {
+      location.locationManager // initialize
+      return
+    }
+
+    monitoringStarted = true
+
+    for region in regions {
+      location.locationManager.startMonitoringForRegion(region)
+    }
+  }
+
+  func authorizationDidChange() {
+    startMonitoring()
   }
 }
+
+

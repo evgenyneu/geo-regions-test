@@ -15,6 +15,9 @@
 		2BCB1F2119551BD600065003 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCB1F2019551BD600065003 /* MapKit.framework */; };
 		2BCB1F2319554FC400065003 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCB1F2219554FC400065003 /* CoreLocation.framework */; };
 		2BCB1F251955500E00065003 /* RegionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB1F241955500E00065003 /* RegionMonitor.swift */; };
+		2BE79E0419555410004C28FB /* MyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE79E0319555410004C28FB /* MyAnnotation.swift */; };
+		2BE79E0619555AC8004C28FB /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE79E0519555AC8004C28FB /* Log.swift */; };
+		2BE79E0819555D97004C28FB /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE79E0719555D97004C28FB /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,9 @@
 		2BCB1F2019551BD600065003 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2BCB1F2219554FC400065003 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2BCB1F241955500E00065003 /* RegionMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegionMonitor.swift; path = ../RegionMonitor.swift; sourceTree = "<group>"; };
+		2BE79E0319555410004C28FB /* MyAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyAnnotation.swift; path = ../MyAnnotation.swift; sourceTree = "<group>"; };
+		2BE79E0519555AC8004C28FB /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Log.swift; path = ../Log.swift; sourceTree = "<group>"; };
+		2BE79E0719555D97004C28FB /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Location.swift; path = ../Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,9 @@
 		2BCB1F00195519C600065003 /* Geo Regions Test */ = {
 			isa = PBXGroup;
 			children = (
+				2BE79E0719555D97004C28FB /* Location.swift */,
+				2BE79E0519555AC8004C28FB /* Log.swift */,
+				2BE79E0319555410004C28FB /* MyAnnotation.swift */,
 				2BCB1F241955500E00065003 /* RegionMonitor.swift */,
 				2BCB1F03195519C600065003 /* AppDelegate.swift */,
 				2BCB1F05195519C600065003 /* ViewController.swift */,
@@ -221,6 +230,9 @@
 			files = (
 				2BCB1F251955500E00065003 /* RegionMonitor.swift in Sources */,
 				2BCB1F06195519C600065003 /* ViewController.swift in Sources */,
+				2BE79E0619555AC8004C28FB /* Log.swift in Sources */,
+				2BE79E0419555410004C28FB /* MyAnnotation.swift in Sources */,
+				2BE79E0819555D97004C28FB /* Location.swift in Sources */,
 				2BCB1F04195519C600065003 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,6 +425,7 @@
 				2BCB1F1C195519C600065003 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2BCB1F1D195519C600065003 /* Build configuration list for PBXNativeTarget "Geo Regions TestTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +434,7 @@
 				2BCB1F1F195519C600065003 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

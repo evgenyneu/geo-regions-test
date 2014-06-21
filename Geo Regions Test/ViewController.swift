@@ -16,24 +16,35 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
   var didInitiaZoom = false
 
-  let regionMonitor = RegionMonitor()
+  var regionMonitor: RegionMonitor!
+  var location: Location!
+  var log: Log!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    mapView.showsUserLocation = true
+    self.log = Log(textView: logView)
+    self.location = Location(log)
+    self.regionMonitor = RegionMonitor(log, location: location)
 
+    self.location.authorizationDidChangeCallbacks += regionMonitor.authorizationDidChange
+
+    mapView.showsUserLocation = true
     mapView.delegate = self
 
-    regionMonitor.start()
+    regionMonitor.addRegion(
+      CLLocationCoordinate2D(latitude: -37.860530, longitude: 144.978838),
+      id: "Home"
+    )
 
-    addLog("Started")
+    regionMonitor.startMonitoring()
+    log.add("Started")
   }
 
   func doInitialZoom(userLocation: MKUserLocation) {
     if didInitiaZoom { return }
     didInitiaZoom = true
-    addLog("doInitialZoom")
+    log.add("doInitialZoom")
     var region = MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, 500, 500)
     mapView.setRegion(region, animated:false)
   }
@@ -49,29 +60,3 @@ extension VCExtensionMapViewDelegate {
     doInitialZoom(userLocation)
   }
 }
-
-// Helpers
-// ------------------------------
-
-typealias VCExtensionHelpers = ViewController
-
-extension VCExtensionHelpers {
-  func addLog(text: String){
-    logView.text = "\(currentTime()) \(text)\n\(logView.text)"
-  }
-
-  func coordToString(location: CLLocation) -> String {
-    let lat = NSString(format: "%.6f", location.coordinate.latitude)
-    let lon = NSString(format: "%.6f", location.coordinate.longitude)
-
-    return "\(lat), \(lon)"
-  }
-
-  func currentTime() -> String {
-    let date = NSDate()
-    let formatter = NSDateFormatter()
-    formatter.timeStyle = .ShortStyle
-    return formatter.stringFromDate(date)
-  }
-}
-
