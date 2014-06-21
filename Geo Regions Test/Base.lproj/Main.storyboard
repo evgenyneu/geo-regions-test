@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
     </dependencies>
     <scenes>
@@ -18,18 +17,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="x3p-dM-zht">
-                                <rect key="frame" x="0.0" y="20" width="480" height="460"/>
+                                <rect key="frame" x="0.0" y="20" width="480" height="332"/>
                             </mapView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJp-3F-Ce5">
+                                <rect key="frame" x="0.0" y="352" width="480" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="sJp-p9-4La"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="aJp-3F-Ce5" secondAttribute="trailing" id="7wu-N0-Pab"/>
+                            <constraint firstItem="aJp-3F-Ce5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Bms-eK-gyt"/>
+                            <constraint firstItem="aJp-3F-Ce5" firstAttribute="top" secondItem="x3p-dM-zht" secondAttribute="bottom" id="FYU-A6-8oU"/>
                             <constraint firstAttribute="trailing" secondItem="x3p-dM-zht" secondAttribute="trailing" id="L0H-qY-U2u"/>
                             <constraint firstItem="x3p-dM-zht" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Yho-Lr-J3b"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="x3p-dM-zht" secondAttribute="bottom" id="ajs-SO-nkK"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="aJp-3F-Ce5" secondAttribute="bottom" id="mPY-sb-XTf"/>
                             <constraint firstItem="x3p-dM-zht" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="rt8-bN-sd8"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <connections>
+                        <outlet property="logView" destination="aJp-3F-Ce5" id="nwJ-7q-w8G"/>
+                        <outlet property="mapView" destination="x3p-dM-zht" id="qzN-Zq-AmS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

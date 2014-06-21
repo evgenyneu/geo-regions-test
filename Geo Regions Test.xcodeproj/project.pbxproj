@@ -13,6 +13,8 @@
 		2BCB1F0B195519C600065003 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BCB1F0A195519C600065003 /* Images.xcassets */; };
 		2BCB1F17195519C600065003 /* Geo_Regions_TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB1F16195519C600065003 /* Geo_Regions_TestTests.swift */; };
 		2BCB1F2119551BD600065003 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCB1F2019551BD600065003 /* MapKit.framework */; };
+		2BCB1F2319554FC400065003 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCB1F2219554FC400065003 /* CoreLocation.framework */; };
+		2BCB1F251955500E00065003 /* RegionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB1F241955500E00065003 /* RegionMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		2BCB1F15195519C600065003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BCB1F16195519C600065003 /* Geo_Regions_TestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geo_Regions_TestTests.swift; sourceTree = "<group>"; };
 		2BCB1F2019551BD600065003 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2BCB1F2219554FC400065003 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2BCB1F241955500E00065003 /* RegionMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegionMonitor.swift; path = ../RegionMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BCB1F2319554FC400065003 /* CoreLocation.framework in Frameworks */,
 				2BCB1F2119551BD600065003 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,6 +65,7 @@
 		2BCB1EF5195519C600065003 = {
 			isa = PBXGroup;
 			children = (
+				2BCB1F2219554FC400065003 /* CoreLocation.framework */,
 				2BCB1F2019551BD600065003 /* MapKit.framework */,
 				2BCB1F00195519C600065003 /* Geo Regions Test */,
 				2BCB1F13195519C600065003 /* Geo Regions TestTests */,
@@ -79,6 +85,7 @@
 		2BCB1F00195519C600065003 /* Geo Regions Test */ = {
 			isa = PBXGroup;
 			children = (
+				2BCB1F241955500E00065003 /* RegionMonitor.swift */,
 				2BCB1F03195519C600065003 /* AppDelegate.swift */,
 				2BCB1F05195519C600065003 /* ViewController.swift */,
 				2BCB1F07195519C600065003 /* Main.storyboard */,
@@ -212,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BCB1F251955500E00065003 /* RegionMonitor.swift in Sources */,
 				2BCB1F06195519C600065003 /* ViewController.swift in Sources */,
 				2BCB1F04195519C600065003 /* AppDelegate.swift in Sources */,
 			);
