@@ -29,7 +29,7 @@ class RegionMonitor {
 
   func createRegion(center: CLLocationCoordinate2D, id: String) -> CLCircularRegion {
     var region = CLCircularRegion(center: center,
-      radius: CLLocationDistance(50), identifier: id)
+      radius: CLLocationDistance(100), identifier: id)
 
     region.notifyOnEntry = true
     region.notifyOnExit = true
@@ -102,22 +102,6 @@ extension ExtCLLocationManagerRegionsDelegate {
     withError error: NSError!) {
 
     log.add("monitoringDidFailForRegion \(region.identifier) \(error.localizedDescription) \(error.localizedFailureReason)");
-  }
-
-  func locationManager(manager: CLLocationManager!,
-    didDetermineState state: CLRegionState, forRegion region: CLRegion!) {
-      var stateName:String
-
-      switch state {
-      case CLRegionState.Unknown:
-        stateName = "unknown"
-      case CLRegionState.Inside:
-        stateName = "inside"
-      case CLRegionState.Outside:
-        stateName = "outside"
-      }
-
-      log.add("didDetermineState \(region.identifier) \(stateName)");
   }
 
   func locationManager(manager: CLLocationManager!,
