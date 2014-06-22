@@ -18,6 +18,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
   var regionMonitor: RegionMonitor!
   var location: Location!
+  var annotations: Annotations!
   var log: Log!
 
   override func viewDidLoad() {
@@ -25,7 +26,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
     self.log = Log(textView: logView)
     self.location = Location(log)
-    self.regionMonitor = RegionMonitor(log, location: location)
+    self.annotations = Annotations(mapView)
+    self.regionMonitor = RegionMonitor(log,
+      location: location,
+      annotations: annotations)
 
     self.location.authorizationDidChangeCallbacks += regionMonitor.authorizationDidChange
 
@@ -37,7 +41,20 @@ class ViewController: UIViewController, MKMapViewDelegate {
       id: "Home"
     )
 
+    regionMonitor.addRegion(
+      CLLocationCoordinate2D(latitude: -37.860355, longitude: 144.976535),
+      id: "Topolinos"
+    )
+
+    regionMonitor.addRegion(
+      CLLocationCoordinate2D(latitude: -37.861250, longitude: 144.975131),
+      id: "Leo's"
+    )
+
     regionMonitor.startMonitoring()
+
+    location.locationManager // initialize
+
     log.add("Started")
   }
 

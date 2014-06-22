@@ -9,7 +9,7 @@
 import MapKit
 import CoreLocation
 
-class MyAnnotation: NSObject, MKAnnotation {
+class Annotation: NSObject, MKAnnotation {
   var coordinate: CLLocationCoordinate2D
 
   init(_ coordinate: CLLocationCoordinate2D) {

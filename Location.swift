@@ -16,24 +16,24 @@ class Location: NSObject, CLLocationManagerDelegate {
   var _locationManager: CLLocationManager?
 
   var locationManager: CLLocationManager {
-  get {
-    if !_locationManager {
-      _locationManager = CLLocationManager()
-      _locationManager!.delegate = self
+    get {
+      if !_locationManager {
+        _locationManager = CLLocationManager()
+        _locationManager!.delegate = self
+      }
+      return _locationManager!
     }
-    return _locationManager!
-  }
-  }
-
-  var authorized: Bool {
-  get {
-    return CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized
-  }
   }
 
   init(_ log: Log) {
     super.init()
     self.log = log
+  }
+
+  var authorized: Bool {
+    get {
+      return CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized
+    }
   }
 }
 
@@ -50,17 +50,5 @@ extension ExtCLLocationManagerDelegate {
       for callacback in authorizationDidChangeCallbacks {
         callacback()
       }
-  }
-
-  func locationManager(manager: CLLocationManager!,
-    didStartMonitoringForRegion region: CLRegion!) {
-      log.add("didStartMonitoringForRegion \(region.identifier)")
-  }
-
-  func locationManager(manager: CLLocationManager!,
-    monitoringDidFailForRegion region: CLRegion!,
-    withError error: NSError!) {
-
-      log.add("monitoringDidFailForRegion \(region.identifier) \(error.localizedDescription) \(error.localizedFailureReason)");
   }
 }
