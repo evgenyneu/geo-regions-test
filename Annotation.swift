@@ -9,13 +9,28 @@
 import MapKit
 import CoreLocation
 
-class Annotation: NSObject, MKAnnotation {
-  var coordinate: CLLocationCoordinate2D
+class Annotation: MKCircle {
 
-  init(_ coordinate: CLLocationCoordinate2D) {
-    self.coordinate = coordinate
+}
+
+// MapView Delegate
+// ------------------------------
+
+typealias Ext_MapViewDelegate_Overlay = ViewController
+
+extension Ext_MapViewDelegate_Overlay {
+  func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) ->
+    MKOverlayRenderer! {
+
+      if overlay.isKindOfClass(Annotation) {
+        var aRenderer =  MKCircleRenderer(circle: overlay as Annotation)
+        aRenderer.fillColor =  UIColor.redColor().colorWithAlphaComponent(0.2)
+        aRenderer.strokeColor = UIColor.greenColor().colorWithAlphaComponent(0.7)
+        aRenderer.lineWidth = 3;
+
+        return aRenderer;
+      }
+      
+      return nil
   }
-
-  var title: String?
-  var subtitle: String?
 }
