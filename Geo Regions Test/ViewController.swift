@@ -51,6 +51,22 @@ class ViewController: UIViewController, MKMapViewDelegate {
       id: "Leo's"
     )
 
+    regionMonitor.addRegion(
+      CLLocationCoordinate2D(latitude: -37.863828, longitude: 144.981185),
+      id: "Dr Jekyll"
+    )
+
+    regionMonitor.addRegion(
+      CLLocationCoordinate2D(latitude: -37.866784, longitude: 144.977770),
+      id: "McDonald's"
+    )
+
+    regionMonitor.addRegion(
+      CLLocationCoordinate2D(latitude: -37.868402, longitude: 144.979340),
+      id: "Woolworths"
+    )
+
+
     regionMonitor.startMonitoring()
 
     location.locationManager // initialize
@@ -62,7 +78,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     if didInitiaZoom { return }
     didInitiaZoom = true
     log.add("doInitialZoom")
-    var region = MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, 500, 500)
+    var region = MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, 1000, 1000)
     mapView.setRegion(region, animated:false)
   }
 }
