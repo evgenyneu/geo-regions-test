@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 
 class RegionMonitor {
-  var regions = CLCircularRegion[]()
+  var regions = [CLCircularRegion]()
   var log: Log!
   var location: Location!
   var annotations: Annotations!
@@ -48,12 +48,12 @@ class RegionMonitor {
     }
   }
 
-  func startMonitoring(region: CLRegion) {
+  func startMonitoring(region: CLCircularRegion) {
     if isMonitoring(region) { return }
     location.locationManager.startMonitoringForRegion(region)
   }
 
-  func isMonitoring(region: CLRegion) -> Bool {
+  func isMonitoring(region: CLCircularRegion) -> Bool {
     var current = currentRegions()
     return current.filter({ el in
       return (el.identifier == region.identifier &&
@@ -69,8 +69,8 @@ class RegionMonitor {
     }
   }
 
-  func currentRegions() -> Array<CLRegion> {
-    return location.locationManager.monitoredRegions.allObjects as Array<CLRegion>
+  func currentRegions() -> Array<CLCircularRegion> {
+    return location.locationManager.monitoredRegions.allObjects as Array<CLCircularRegion>
   }
 
   func authorizationDidChange() {
@@ -92,26 +92,26 @@ typealias ExtCLLocationManagerRegionsDelegate = Location
 
 extension ExtCLLocationManagerRegionsDelegate {
   func locationManager(manager: CLLocationManager!,
-    didStartMonitoringForRegion region: CLRegion!) {
+    didStartMonitoringForRegion region: CLCircularRegion!) {
 
     log.add("didStartMonitoringForRegion \(region.identifier)")
   }
 
   func locationManager(manager: CLLocationManager!,
-    monitoringDidFailForRegion region: CLRegion!,
+    monitoringDidFailForRegion region: CLCircularRegion!,
     withError error: NSError!) {
 
     log.add("monitoringDidFailForRegion \(region.identifier) \(error.localizedDescription) \(error.localizedFailureReason)");
   }
 
   func locationManager(manager: CLLocationManager!,
-    didEnterRegion region: CLRegion!) {
+    didEnterRegion region: CLCircularRegion!) {
 
       log.add("didEnterRegion \(region.identifier)");
   }
 
   func locationManager(manager: CLLocationManager!,
-    didExitRegion region: CLRegion!) {
+    didExitRegion region: CLCircularRegion!) {
 
       log.add("didExitRegion \(region.identifier)");
   }

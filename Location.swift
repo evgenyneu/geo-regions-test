@@ -11,7 +11,7 @@ import CoreLocation
 
 class Location: NSObject, CLLocationManagerDelegate {
   var log: Log!
-  var authorizationDidChangeCallbacks: (()->())[] = []
+  var authorizationDidChangeCallbacks: [(()->())] = []
 
   var _locationManager: CLLocationManager?
 
