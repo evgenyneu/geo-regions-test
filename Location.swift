@@ -17,9 +17,13 @@ class Location: NSObject, CLLocationManagerDelegate {
 
   var locationManager: CLLocationManager {
     get {
-      if !_locationManager {
+      if _locationManager == nil {
         _locationManager = CLLocationManager()
         _locationManager!.delegate = self
+
+        if _locationManager!.respondsToSelector(Selector("requestAlwaysAuthorization")) {
+          _locationManager!.requestAlwaysAuthorization()
+        }
       }
       return _locationManager!
     }
@@ -46,7 +50,7 @@ extension ExtCLLocationManagerDelegate {
   func locationManager(manager: CLLocationManager!,
     didChangeAuthorizationStatus status: CLAuthorizationStatus) {
 
-      log.add("didChangeAuthorizationStatus \(status.toRaw())")
+      log.add("didChangeAuthorizationStatus \(status.rawValue))")
       for callacback in authorizationDidChangeCallbacks {
         callacback()
       }

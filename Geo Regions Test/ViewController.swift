@@ -11,8 +11,8 @@ import MapKit
 
 class ViewController: UIViewController, MKMapViewDelegate {
 
-  @IBOutlet var mapView : MKMapView
-  @IBOutlet var logView : UITextView
+  @IBOutlet var mapView : MKMapView!
+  @IBOutlet var logView : UITextView!
 
   var didInitiaZoom = false
 
@@ -31,8 +31,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
       location: location,
       annotations: annotations)
 
-    self.location.authorizationDidChangeCallbacks += regionMonitor.authorizationDidChange
-
+    self.location.authorizationDidChangeCallbacks.append(regionMonitor.authorizationDidChange)
     mapView.showsUserLocation = true
     mapView.delegate = self
 

@@ -24,7 +24,7 @@ class RegionMonitor {
   }
 
   func addRegion(center:CLLocationCoordinate2D, id: String) {
-    regions += createRegion(center, id: id)
+    regions.append(createRegion(center, id: id))
   }
 
   func createRegion(center: CLLocationCoordinate2D, id: String) -> CLCircularRegion {
