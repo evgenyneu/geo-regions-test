@@ -13,6 +13,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
   @IBOutlet var mapView : MKMapView!
   @IBOutlet var logView : UITextView!
+  @IBOutlet weak var restartButton: UIBarButtonItem!
 
   var didInitiaZoom = false
 
@@ -87,10 +88,15 @@ class ViewController: UIViewController, MKMapViewDelegate {
   @IBAction func onRestartButtonTapped(sender: AnyObject) {
     log.clear()
 
+    restartButton.enabled = false
     regionMonitor.stopMonitoringForAllRegions()
 
     iiQ.runAfterDelay(0.1) {
       self.regionMonitor.startMonitoring()
+
+      iiQ.runAfterDelay(1) {
+        self.restartButton.enabled = true
+      }
     }
   }
 }

@@ -51,6 +51,7 @@
                     <connections>
                         <outlet property="logView" destination="aJp-3F-Ce5" id="nwJ-7q-w8G"/>
                         <outlet property="mapView" destination="x3p-dM-zht" id="qzN-Zq-AmS"/>
+                        <outlet property="restartButton" destination="hcf-JI-zVg" id="L3i-vN-PZG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
