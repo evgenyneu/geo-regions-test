@@ -41,6 +41,11 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
 
     regionMonitor.addRegion(
+      CLLocationCoordinate2D(latitude: -37.860530, longitude: 144.978838),
+      id: "Home"
+    )
+    
+    regionMonitor.addRegion(
       CLLocationCoordinate2D(latitude: -37.859773, longitude: 144.980343),
       id: "Nearby"
     )
