@@ -26,6 +26,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
     self.log = Log(textView: logView)
     self.location = Location(log)
+    location.locationManager // initialize
+
+    
     self.annotations = Annotations(mapView)
     self.regionMonitor = RegionMonitor(log,
       location: location,
@@ -35,40 +38,40 @@ class ViewController: UIViewController, MKMapViewDelegate {
     mapView.showsUserLocation = true
     mapView.delegate = self
 
-    regionMonitor.addRegion(
-      CLLocationCoordinate2D(latitude: -37.860530, longitude: 144.978838),
-      id: "Home"
-    )
 
     regionMonitor.addRegion(
-      CLLocationCoordinate2D(latitude: -37.860355, longitude: 144.976535),
-      id: "Topolinos"
+      CLLocationCoordinate2D(latitude: -37.859773, longitude: 144.980343),
+      id: "Nearby"
     )
 
-    regionMonitor.addRegion(
-      CLLocationCoordinate2D(latitude: -37.861250, longitude: 144.975131),
-      id: "Leo's"
-    )
-
-    regionMonitor.addRegion(
-      CLLocationCoordinate2D(latitude: -37.863828, longitude: 144.981185),
-      id: "Dr Jekyll"
-    )
-
-    regionMonitor.addRegion(
-      CLLocationCoordinate2D(latitude: -37.866784, longitude: 144.977770),
-      id: "McDonald's"
-    )
-
-    regionMonitor.addRegion(
-      CLLocationCoordinate2D(latitude: -37.868402, longitude: 144.979340),
-      id: "Woolworths"
-    )
-
+//    regionMonitor.addRegion(
+//      CLLocationCoordinate2D(latitude: -37.860355, longitude: 144.976535),
+//      id: "Topolinos"
+//    )
+//
+//    regionMonitor.addRegion(
+//      CLLocationCoordinate2D(latitude: -37.861250, longitude: 144.975131),
+//      id: "Leo's"
+//    )
+//
+//    regionMonitor.addRegion(
+//      CLLocationCoordinate2D(latitude: -37.863828, longitude: 144.981185),
+//      id: "Dr Jekyll"
+//    )
+//
+//    regionMonitor.addRegion(
+//      CLLocationCoordinate2D(latitude: -37.866784, longitude: 144.977770),
+//      id: "McDonald's"
+//    )
+//
+//    regionMonitor.addRegion(
+//      CLLocationCoordinate2D(latitude: -37.868402, longitude: 144.979340),
+//      id: "Woolworths"
+//    )
 
     regionMonitor.startMonitoring()
 
-    location.locationManager // initialize
+
 
     log.add("Started")
   }
@@ -79,6 +82,15 @@ class ViewController: UIViewController, MKMapViewDelegate {
     log.add("doInitialZoom")
     var region = MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, 1000, 1000)
     mapView.setRegion(region, animated:false)
+  }
+
+  @IBAction func onStopButtonTapped(sender: AnyObject) {
+    log.clear()
+    regionMonitor.stopMonitoringForAllRegions()
+  }
+
+  @IBAction func onStartButtonTapped(sender: AnyObject) {
+    regionMonitor.startMonitoring()
   }
 }
 

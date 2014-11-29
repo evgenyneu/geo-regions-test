@@ -34,4 +34,8 @@ class Log {
     formatter.timeStyle = .ShortStyle
     return formatter.stringFromDate(date)
   }
+
+  func clear() {
+    textView.text = ""
+  }
 }

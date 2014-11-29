@@ -37,6 +37,14 @@ class RegionMonitor {
     return region
   }
 
+  func stopMonitoringForAllRegions() {
+    let current = currentRegions()
+    for region in current {
+      location.locationManager.stopMonitoringForRegion(region)
+    }
+    monitoringStarted = false
+  }
+
   func startMonitoring() {
     if !location.authorized { return }
 
@@ -44,12 +52,16 @@ class RegionMonitor {
     monitoringStarted = true
 
     for region in regions {
-      startMonitoring(region);
+      startMonitoring(region)
     }
   }
 
   func startMonitoring(region: CLCircularRegion) {
-    if isMonitoring(region) { return }
+    if isMonitoring(region) {
+      location.requestStateForRegion(region)
+      return
+    }
+
     location.locationManager.startMonitoringForRegion(region)
   }
 
@@ -92,28 +104,43 @@ typealias ExtCLLocationManagerRegionsDelegate = Location
 
 extension ExtCLLocationManagerRegionsDelegate {
   func locationManager(manager: CLLocationManager!,
-    didStartMonitoringForRegion region: CLCircularRegion!) {
+    didStartMonitoringForRegion region: CLRegion!) {
 
     log.add("didStartMonitoringForRegion \(region.identifier)")
+
+
+    requestStateForRegion(region)
   }
 
   func locationManager(manager: CLLocationManager!,
-    monitoringDidFailForRegion region: CLCircularRegion!,
-    withError error: NSError!) {
+    monitoringDidFailForRegion region: CLRegion!, withError error: NSError!) {
 
-    log.add("monitoringDidFailForRegion \(region.identifier) \(error.localizedDescription) \(error.localizedFailureReason)");
+    log.add("monitoringDidFailForRegion \(region.identifier) \(error.localizedDescription) \(error.localizedFailureReason)")
   }
 
   func locationManager(manager: CLLocationManager!,
-    didEnterRegion region: CLCircularRegion!) {
+    didDetermineState state: CLRegionState, forRegion region: CLRegion!) {
 
-      log.add("didEnterRegion \(region.identifier)");
+    var stateName = ""
+
+    switch state {
+    case .Inside:
+      stateName = "Inside"
+    case .Outside:
+      stateName = "Outside"
+    case .Unknown:
+      stateName = "Unknown"
+    }
+
+    log.add("didDetermineState \(stateName) \(region.identifier)")
   }
 
-  func locationManager(manager: CLLocationManager!,
-    didExitRegion region: CLCircularRegion!) {
+  func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
+    log.add("didEnterRegion \(region.identifier)")
+  }
 
-      log.add("didExitRegion \(region.identifier)");
+  func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
+    log.add("didExitRegion \(region.identifier)")
   }
 }
 

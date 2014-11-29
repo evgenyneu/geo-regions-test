@@ -39,6 +39,12 @@ class Location: NSObject, CLLocationManagerDelegate {
       return CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized
     }
   }
+
+  func requestStateForRegion(region: CLRegion) {
+    iiQ.runAfterDelay(1) {
+      self.locationManager.requestStateForRegion(region)
+    }
+  }
 }
 
 // CLLocationManager Delegate
