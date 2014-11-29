@@ -18,7 +18,9 @@ class Log {
   }
 
   func add(text: String){
-    textView.text = "\(currentTime()) \(text)\n\(textView.text)"
+    iiQ.main {
+      self.textView.text = "\(self.currentTime) \(text)\n\(self.textView.text)"
+    }
   }
 
   func coordToString(location: CLLocation) -> String {
@@ -28,7 +30,7 @@ class Log {
     return "\(lat), \(lon)"
   }
 
-  func currentTime() -> String {
+  private var currentTime: String {
     let date = NSDate()
     let formatter = NSDateFormatter()
     formatter.timeStyle = .ShortStyle
@@ -36,6 +38,8 @@ class Log {
   }
 
   func clear() {
-    textView.text = ""
+    iiQ.main {
+      self.textView.text = ""
+    }
   }
 }

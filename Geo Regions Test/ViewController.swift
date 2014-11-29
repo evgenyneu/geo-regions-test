@@ -26,7 +26,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
     self.log = Log(textView: logView)
     self.location = Location(log)
-    location.locationManager // initialize
+    location.setup() // initialize
 
     
     self.annotations = Annotations(mapView)
@@ -84,13 +84,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
     mapView.setRegion(region, animated:false)
   }
 
-  @IBAction func onStopButtonTapped(sender: AnyObject) {
+  @IBAction func onRestartButtonTapped(sender: AnyObject) {
     log.clear()
-    regionMonitor.stopMonitoringForAllRegions()
-  }
 
-  @IBAction func onStartButtonTapped(sender: AnyObject) {
-    regionMonitor.startMonitoring()
+    regionMonitor.stopMonitoringForAllRegions()
+
+    iiQ.runAfterDelay(0.1) {
+      self.regionMonitor.startMonitoring()
+    }
   }
 }
 

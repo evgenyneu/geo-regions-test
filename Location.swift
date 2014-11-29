@@ -13,9 +13,34 @@ class Location: NSObject, CLLocationManagerDelegate {
   var log: Log!
   var authorizationDidChangeCallbacks: [(()->())] = []
 
-  var _locationManager: CLLocationManager?
+  private var _locationManager: CLLocationManager?
 
-  var locationManager: CLLocationManager {
+  func setup() {
+    iiQ.main { let a = self.locationManager }
+  }
+
+  func stopMonitoringForRegion(region: CLRegion) {
+    iiQ.main { self.locationManager.stopMonitoringForRegion(region) }
+  }
+
+  func startMonitoringForRegion(region: CLRegion) {
+    iiQ.main { self.locationManager.startMonitoringForRegion(region) }
+  }
+
+  func monitoredRegions(callback: ([CLRegion])->()) {
+    iiQ.main {
+      var result = [CLRegion]()
+      for region in self.locationManager.monitoredRegions {
+        if let currentRegion = region as? CLRegion {
+          result.append(currentRegion)
+        }
+
+      }
+      callback(result)
+    }
+  }
+
+  private var locationManager: CLLocationManager {
     get {
       if _locationManager == nil {
         _locationManager = CLLocationManager()
@@ -41,7 +66,7 @@ class Location: NSObject, CLLocationManagerDelegate {
   }
 
   func requestStateForRegion(region: CLRegion) {
-    iiQ.runAfterDelay(1) {
+    iiQ.runAfterDelay(0.5) {
       self.locationManager.requestStateForRegion(region)
     }
   }
@@ -56,7 +81,7 @@ extension ExtCLLocationManagerDelegate {
   func locationManager(manager: CLLocationManager!,
     didChangeAuthorizationStatus status: CLAuthorizationStatus) {
 
-      log.add("didChangeAuthorizationStatus \(status.rawValue))")
+      log.add("didChangeAuthorizationStatus \(status.rawValue)")
       for callacback in authorizationDidChangeCallbacks {
         callacback()
       }

@@ -42,14 +42,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="c90-h1-oSF">
-                        <barButtonItem key="leftBarButtonItem" title="Stop" id="Oq5-0T-Kdf">
+                        <barButtonItem key="rightBarButtonItem" title="Restart" id="hcf-JI-zVg">
                             <connections>
-                                <action selector="onStopButtonTapped:" destination="BYZ-38-t0r" id="eOU-aE-6MW"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Start" id="hcf-JI-zVg">
-                            <connections>
-                                <action selector="onStartButtonTapped:" destination="BYZ-38-t0r" id="eSx-7S-JSJ"/>
+                                <action selector="onRestartButtonTapped:" destination="BYZ-38-t0r" id="ZpV-OU-1zU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

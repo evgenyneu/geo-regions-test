@@ -38,11 +38,12 @@ class RegionMonitor {
   }
 
   func stopMonitoringForAllRegions() {
-    let current = currentRegions()
-    for region in current {
-      location.locationManager.stopMonitoringForRegion(region)
+    currentRegions { regions in
+      for region in regions {
+        self.location.stopMonitoringForRegion(region)
+      }
+      self.monitoringStarted = false
     }
-    monitoringStarted = false
   }
 
   func startMonitoring() {
@@ -57,32 +58,46 @@ class RegionMonitor {
   }
 
   func startMonitoring(region: CLCircularRegion) {
-    if isMonitoring(region) {
-      location.requestStateForRegion(region)
-      return
+    isMonitoring(region) { alreadyStarted in
+      if alreadyStarted {
+        self.location.requestStateForRegion(region)
+      } else {
+        self.location.startMonitoringForRegion(region)
+      }
     }
-
-    location.locationManager.startMonitoringForRegion(region)
   }
 
-  func isMonitoring(region: CLCircularRegion) -> Bool {
-    var current = currentRegions()
-    return current.filter({ el in
-      return (el.identifier == region.identifier &&
-        el.center.latitude == region.center.latitude &&
-        el.center.longitude == region.center.longitude)
-      }).count > 0
+  func isMonitoring(region: CLCircularRegion, callback: (Bool)->()) {
+    currentRegions { regions in
+
+      for currentRegion in regions {
+        if let currentCircularRegion = currentRegion as? CLCircularRegion {
+          if currentCircularRegion.identifier == region.identifier &&
+            currentCircularRegion.center.latitude == region.center.latitude &&
+            currentCircularRegion.center.longitude == region.center.longitude {
+
+            callback(true)
+            return
+          }
+        }
+      }
+
+      callback(false)
+    }
   }
 
   func showAnnotations() {
-    var current = currentRegions()
-    for region in current {
-      annotations.add(region.center, id: region.identifier)
+    currentRegions { regions in
+      for region in regions {
+        if let circularRegion = region as? CLCircularRegion {
+          self.annotations.add(circularRegion.center, id: circularRegion.identifier)
+        }
+      }
     }
   }
 
-  func currentRegions() -> Array<CLCircularRegion> {
-    return location.locationManager.monitoredRegions.allObjects as Array<CLCircularRegion>
+  func currentRegions(callback: ([CLRegion])->()) {
+    location.monitoredRegions(callback)
   }
 
   func authorizationDidChange() {
