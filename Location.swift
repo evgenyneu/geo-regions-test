@@ -43,12 +43,23 @@ class Location: NSObject, CLLocationManagerDelegate {
   private var locationManager: CLLocationManager {
     get {
       if _locationManager == nil {
-        _locationManager = CLLocationManager()
-        _locationManager!.delegate = self
+        let newManager = CLLocationManager()
+        newManager.delegate = self
 
-        if _locationManager!.respondsToSelector(Selector("requestAlwaysAuthorization")) {
-          _locationManager!.requestAlwaysAuthorization()
+        _locationManager = newManager
+
+        if newManager.respondsToSelector(Selector("requestAlwaysAuthorization")) {
+          newManager.requestAlwaysAuthorization()
         }
+
+        log.add("kCLLocationAccuracyBest \(kCLLocationAccuracyBest)")
+        log.add("desiredAccuracy \(newManager.desiredAccuracy)")
+
+        log.add("kCLDistanceFilterNone \(kCLDistanceFilterNone)")
+        log.add("distanceFilter \(newManager.distanceFilter)")
+
+        log.add("CLActivityTypeOther \(CLActivityType.Other.rawValue)")
+        log.add("activityType \(newManager.activityType.rawValue)")
       }
       return _locationManager!
     }
@@ -66,9 +77,9 @@ class Location: NSObject, CLLocationManagerDelegate {
   }
 
   func requestStateForRegion(region: CLRegion) {
-    iiQ.runAfterDelay(0.5) {
-      self.locationManager.requestStateForRegion(region)
-    }
+//    iiQ.runAfterDelay(0.5) {
+//      self.locationManager.requestStateForRegion(region)
+//    }
   }
 }
 
@@ -81,7 +92,9 @@ extension ExtCLLocationManagerDelegate {
   func locationManager(manager: CLLocationManager!,
     didChangeAuthorizationStatus status: CLAuthorizationStatus) {
 
-      log.add("didChangeAuthorizationStatus \(status.rawValue)")
+      let statusText = status == CLAuthorizationStatus.Authorized ? "authorized" : "NOT authorized \(CLAuthorizationStatus.Authorized.rawValue)"
+      log.add("didChangeAuthorizationStatus \(statusText)")
+      
       for callacback in authorizationDidChangeCallbacks {
         callacback()
       }

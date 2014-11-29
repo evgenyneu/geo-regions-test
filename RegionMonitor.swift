@@ -47,6 +47,7 @@ class RegionMonitor {
   }
 
   func startMonitoring() {
+    checkRegionMonitoringAvailability()
     if !location.authorized { return }
 
     if monitoringStarted { return }
@@ -108,6 +109,14 @@ class RegionMonitor {
     } else {
       annotations.removeAll()
     }
+  }
+
+  private func checkRegionMonitoringAvailability() {
+
+    let regionMonitoringAvailable = CLLocationManager.isMonitoringAvailableForClass(CLCircularRegion)
+
+    let status = regionMonitoringAvailable ? "available" : "NOT available"
+    log.add("Region monotoring available \(regionMonitoringAvailable)")
   }
 }
 
