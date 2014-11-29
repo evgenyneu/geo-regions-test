@@ -52,14 +52,20 @@ class Location: NSObject, CLLocationManagerDelegate {
           newManager.requestAlwaysAuthorization()
         }
 
+        newManager.pausesLocationUpdatesAutomatically = false
+
         log.add("kCLLocationAccuracyBest \(kCLLocationAccuracyBest)")
         log.add("desiredAccuracy \(newManager.desiredAccuracy)")
+
+        newManager.desiredAccuracy = kCLLocationAccuracyBest
 
         log.add("kCLDistanceFilterNone \(kCLDistanceFilterNone)")
         log.add("distanceFilter \(newManager.distanceFilter)")
 
         log.add("CLActivityTypeOther \(CLActivityType.Other.rawValue)")
         log.add("activityType \(newManager.activityType.rawValue)")
+
+        newManager.activityType = CLActivityType.Fitness
       }
       return _locationManager!
     }
@@ -77,9 +83,9 @@ class Location: NSObject, CLLocationManagerDelegate {
   }
 
   func requestStateForRegion(region: CLRegion) {
-//    iiQ.runAfterDelay(0.5) {
-//      self.locationManager.requestStateForRegion(region)
-//    }
+    iiQ.runAfterDelay(0.5) {
+      self.locationManager.requestStateForRegion(region)
+    }
   }
 }
 
