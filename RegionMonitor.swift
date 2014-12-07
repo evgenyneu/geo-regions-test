@@ -160,10 +160,12 @@ extension ExtCLLocationManagerRegionsDelegate {
   }
 
   func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
+    Notification.send("You reached region: \(region.identifier)")
     log.add("didEnterRegion \(region.identifier)")
   }
 
   func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
+    Notification.send("You exited region: \(region.identifier)")
     log.add("didExitRegion \(region.identifier)")
   }
 }

@@ -52,8 +52,6 @@ class Location: NSObject, CLLocationManagerDelegate {
           newManager.requestAlwaysAuthorization()
         }
 
-        newManager.pausesLocationUpdatesAutomatically = false
-
         log.add("kCLLocationAccuracyBest \(kCLLocationAccuracyBest)")
         log.add("desiredAccuracy \(newManager.desiredAccuracy)")
 
