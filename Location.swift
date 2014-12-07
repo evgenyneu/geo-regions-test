@@ -57,8 +57,6 @@ class Location: NSObject, CLLocationManagerDelegate {
         log.add("kCLLocationAccuracyBest \(kCLLocationAccuracyBest)")
         log.add("desiredAccuracy \(newManager.desiredAccuracy)")
 
-        newManager.desiredAccuracy = kCLLocationAccuracyBest
-
         log.add("kCLDistanceFilterNone \(kCLDistanceFilterNone)")
         log.add("distanceFilter \(newManager.distanceFilter)")
 

@@ -23,7 +23,7 @@ class Log {
     }
   }
 
-  func coordToString(location: CLLocation) -> String {
+  class func coordToString(location: CLLocation) -> String {
     let lat = NSString(format: "%.6f", location.coordinate.latitude)
     let lon = NSString(format: "%.6f", location.coordinate.longitude)
 

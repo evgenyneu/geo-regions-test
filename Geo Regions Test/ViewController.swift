@@ -64,15 +64,20 @@ class ViewController: UIViewController, MKMapViewDelegate {
       CLLocationCoordinate2D(latitude: -37.863828, longitude: 144.981185),
       id: "Dr Jekyll"
     )
+//
+//    regionMonitor.addRegion(
+//      CLLocationCoordinate2D(latitude: -37.866784, longitude: 144.977770),
+//      id: "McDonald's"
+//    )
+//
+//    regionMonitor.addRegion(
+//      CLLocationCoordinate2D(latitude: -37.868402, longitude: 144.979340),
+//      id: "Woolworths"
+//    )
 
     regionMonitor.addRegion(
-      CLLocationCoordinate2D(latitude: -37.866784, longitude: 144.977770),
-      id: "McDonald's"
-    )
-
-    regionMonitor.addRegion(
-      CLLocationCoordinate2D(latitude: -37.868402, longitude: 144.979340),
-      id: "Woolworths"
+      CLLocationCoordinate2D(latitude: -37.891822, longitude: 144.985480),
+      id: "Far away"
     )
 
     regionMonitor.startMonitoring()
