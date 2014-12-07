@@ -153,7 +153,7 @@ extension ExtCLLocationManagerRegionsDelegate {
       stateName = "Unknown"
     }
 
-    log.add("didDetermineState \(stateName) \(region.identifier)")
+//    log.add("didDetermineState \(stateName) \(region.identifier)")
   }
 
   func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
@@ -162,8 +162,8 @@ extension ExtCLLocationManagerRegionsDelegate {
   }
 
   func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
-    Notification.send("You exited region: \(region.identifier)")
-    log.add("didExitRegion \(region.identifier)")
+//    Notification.send("You exited region: \(region.identifier)")
+//    log.add("didExitRegion \(region.identifier)")
   }
 }
 
