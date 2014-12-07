@@ -88,11 +88,10 @@ class RegionMonitor {
   }
 
   func showAnnotations() {
-    currentRegions { regions in
-      for region in regions {
-        if let circularRegion = region as? CLCircularRegion {
-          self.annotations.add(circularRegion.center, id: circularRegion.identifier)
-        }
+    annotations.removeAll()
+    iiQ.runAfterDelay(1) {
+      for region in self.regions {
+        self.annotations.add(region.center, id: region.identifier)
       }
     }
   }
@@ -106,8 +105,6 @@ class RegionMonitor {
 
     if location.authorized {
       showAnnotations()
-    } else {
-      annotations.removeAll()
     }
   }
 

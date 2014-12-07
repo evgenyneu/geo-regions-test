@@ -42,6 +42,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="c90-h1-oSF">
+                        <barButtonItem key="leftBarButtonItem" title="Exit" id="LUw-Oc-6ez">
+                            <connections>
+                                <action selector="onExitTapped:" destination="BYZ-38-t0r" id="zCX-MC-3cz"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Restart" id="hcf-JI-zVg">
                             <connections>
                                 <action selector="onRestartButtonTapped:" destination="BYZ-38-t0r" id="ZpV-OU-1zU"/>

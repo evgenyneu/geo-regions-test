@@ -26,10 +26,6 @@
 	<string>Your location is used to determine when you reach the circle.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Your location is used to determine when you reach the circle.</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>location</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>
