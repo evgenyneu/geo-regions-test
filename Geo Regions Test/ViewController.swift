@@ -38,7 +38,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
       annotations: annotations)
 
     self.location.authorizationDidChangeCallbacks.append(regionMonitor.authorizationDidChange)
-    mapView.showsUserLocation = true
+//    mapView.showsUserLocation = true
     mapView.delegate = self
 
 
@@ -96,14 +96,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
   private var myRegions: [String: [Double]] {
     return [
-      "Where it all begins": [-37.853230, 144.977002],
-      "Big tree": [-37.848667, 144.971795],
-      "Latte on the lake": [-37.845403, 144.967381],
-      "Boats": [-37.842136, 144.964312],
-      "Chicane": [-37.842116, 144.971032],
-      "Saling together": [-37.850260, 144.976994],
+//      "Where it all begins": [-37.853230, 144.977002],
+//      "Big tree": [-37.848667, 144.971795],
+//      "Latte on the lake": [-37.845403, 144.967381],
+//      "Boats": [-37.842136, 144.964312],
+//      "Chicane": [-37.842116, 144.971032],
+//      "Saling together": [-37.850260, 144.976994],
       "Where the food come from": [-37.859254, 144.977918],
-      "Home": [-37.860546, 144.978859]
+      "Home": [-37.860546, 144.978859],
+      "Nearby": [-37.859773, 144.980343],
+      "Dr Jekyll": [-37.863828, 144.981185],
     ]
   }
 

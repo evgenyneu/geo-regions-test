@@ -29,7 +29,7 @@ class RegionMonitor {
 
   func createRegion(center: CLLocationCoordinate2D, id: String) -> CLCircularRegion {
     var region = CLCircularRegion(center: center,
-      radius: CLLocationDistance(100), identifier: id)
+      radius: CLLocationDistance(130), identifier: id)
 
     region.notifyOnEntry = true
     region.notifyOnExit = true
@@ -153,7 +153,7 @@ extension ExtCLLocationManagerRegionsDelegate {
       stateName = "Unknown"
     }
 
-//    log.add("didDetermineState \(stateName) \(region.identifier)")
+    log.add("didDetermineState \(stateName) \(region.identifier)")
   }
 
   func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {

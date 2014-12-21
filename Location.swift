@@ -61,7 +61,7 @@ class Location: NSObject, CLLocationManagerDelegate {
         log.add("CLActivityTypeOther \(CLActivityType.Other.rawValue)")
         log.add("activityType \(newManager.activityType.rawValue)")
 
-        newManager.activityType = CLActivityType.Fitness
+//        newManager.activityType = CLActivityType.Fitness
       }
       return _locationManager!
     }
