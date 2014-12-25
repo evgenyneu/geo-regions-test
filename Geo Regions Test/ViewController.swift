@@ -49,46 +49,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
       )
     }
 
-//    regionMonitor.addRegion(
-//      CLLocationCoordinate2D(latitude: -37.860530, longitude: 144.978838),
-//      id: "Home"
-//    )
-//
-//    regionMonitor.addRegion(
-//      CLLocationCoordinate2D(latitude: -37.859773, longitude: 144.980343),
-//      id: "Nearby"
-//    )
-//
-//    regionMonitor.addRegion(
-//      CLLocationCoordinate2D(latitude: -37.860355, longitude: 144.976535),
-//      id: "Topolinos"
-//    )
-//
-//    regionMonitor.addRegion(
-//      CLLocationCoordinate2D(latitude: -37.861250, longitude: 144.975131),
-//      id: "Leo's"
-//    )
-//
-//    regionMonitor.addRegion(
-//      CLLocationCoordinate2D(latitude: -37.863828, longitude: 144.981185),
-//      id: "Dr Jekyll"
-//    )
-//
-//    regionMonitor.addRegion(
-//      CLLocationCoordinate2D(latitude: -37.866784, longitude: 144.977770),
-//      id: "McDonald's"
-//    )
-//
-//    regionMonitor.addRegion(
-//      CLLocationCoordinate2D(latitude: -37.868402, longitude: 144.979340),
-//      id: "Woolworths"
-//    )
-
-//    regionMonitor.addRegion(
-//      CLLocationCoordinate2D(latitude: -37.891822, longitude: 144.985480),
-//      id: "Far away"
-//    )
-
     regionMonitor.startMonitoring()
 
     log.add("Started")

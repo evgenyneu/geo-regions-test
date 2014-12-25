@@ -51,17 +51,6 @@ class Location: NSObject, CLLocationManagerDelegate {
         if newManager.respondsToSelector(Selector("requestAlwaysAuthorization")) {
           newManager.requestAlwaysAuthorization()
         }
-
-        log.add("kCLLocationAccuracyBest \(kCLLocationAccuracyBest)")
-        log.add("desiredAccuracy \(newManager.desiredAccuracy)")
-
-        log.add("kCLDistanceFilterNone \(kCLDistanceFilterNone)")
-        log.add("distanceFilter \(newManager.distanceFilter)")
-
-        log.add("CLActivityTypeOther \(CLActivityType.Other.rawValue)")
-        log.add("activityType \(newManager.activityType.rawValue)")
-
-//        newManager.activityType = CLActivityType.Fitness
       }
       return _locationManager!
     }
@@ -72,9 +61,12 @@ class Location: NSObject, CLLocationManagerDelegate {
     self.log = log
   }
 
-  var authorized: Bool {
+  var authorizedOrUndetermined: Bool {
     get {
-      return CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized
+      let status = CLLocationManager.authorizationStatus()
+
+      return status == CLAuthorizationStatus.Authorized ||
+          status == CLAuthorizationStatus.NotDetermined
     }
   }
 
@@ -95,6 +87,7 @@ extension ExtCLLocationManagerDelegate {
     didChangeAuthorizationStatus status: CLAuthorizationStatus) {
 
       let statusText = status == CLAuthorizationStatus.Authorized ? "authorized" : "NOT authorized \(CLAuthorizationStatus.Authorized.rawValue)"
+
       log.add("didChangeAuthorizationStatus \(statusText)")
       
       for callacback in authorizationDidChangeCallbacks {

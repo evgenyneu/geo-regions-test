@@ -48,7 +48,7 @@ class RegionMonitor {
 
   func startMonitoring() {
     checkRegionMonitoringAvailability()
-    if !location.authorized { return }
+    if !location.authorizedOrUndetermined { return }
 
     if monitoringStarted { return }
     monitoringStarted = true
@@ -103,7 +103,7 @@ class RegionMonitor {
   func authorizationDidChange() {
     startMonitoring()
 
-    if location.authorized {
+    if location.authorizedOrUndetermined {
       showAnnotations()
     }
   }
