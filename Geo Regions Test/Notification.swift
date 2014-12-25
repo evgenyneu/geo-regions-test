@@ -16,4 +16,21 @@ class Notification {
     notification.soundName = UILocalNotificationDefaultSoundName
     UIApplication.sharedApplication().scheduleLocalNotification(notification)
   }
+
+  class func registerNotifications() {
+    if !UIApplication.instancesRespondToSelector(Selector("registerUserNotificationSettings:"))
+    {
+      return // there is no need to register local notifications in iOS 7
+    }
+
+    sendNotificationRegisterRequest()
+  }
+
+  private class func sendNotificationRegisterRequest() {
+    let settings = UIUserNotificationSettings(
+      forTypes: UIUserNotificationType.Alert | UIUserNotificationType.Sound,
+      categories: nil)
+
+    UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+  }
 }

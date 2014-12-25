@@ -50,8 +50,17 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
 
     regionMonitor.startMonitoring()
+    zoomToFirstRegion()
+    Notification.registerNotifications()
 
     log.add("Started")
+  }
+
+  private func zoomToFirstRegion() {
+    if let region = myRegions.values.first {
+      let coordinate = CLLocationCoordinate2D(latitude: region[0], longitude: region[1])
+      doInitialZoom(coordinate)
+    }
   }
 
   private var myRegions: [String: [Double]] {
@@ -74,10 +83,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
   }
 
   func doInitialZoom(userLocation: MKUserLocation) {
+    doInitialZoom(userLocation.location.coordinate)
+  }
+
+  func doInitialZoom(coordinate: CLLocationCoordinate2D) {
     if didInitiaZoom { return }
     didInitiaZoom = true
     log.add("doInitialZoom")
-    var region = MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, 1000, 1000)
+    var region = MKCoordinateRegionMakeWithDistance(coordinate, 1000, 1000)
     mapView.setRegion(region, animated:false)
   }
 
