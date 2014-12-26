@@ -29,7 +29,7 @@ class RegionMonitor {
 
   func createRegion(center: CLLocationCoordinate2D, id: String) -> CLCircularRegion {
     var region = CLCircularRegion(center: center,
-      radius: CLLocationDistance(130), identifier: id)
+      radius: CLLocationDistance(100), identifier: id)
 
     region.notifyOnEntry = true
     region.notifyOnExit = true

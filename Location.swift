@@ -51,6 +51,8 @@ class Location: NSObject, CLLocationManagerDelegate {
         if newManager.respondsToSelector(Selector("requestAlwaysAuthorization")) {
           newManager.requestAlwaysAuthorization()
         }
+
+        newManager.startUpdatingLocation()
       }
       return _locationManager!
     }
@@ -93,5 +95,19 @@ extension ExtCLLocationManagerDelegate {
       for callacback in authorizationDidChangeCallbacks {
         callacback()
       }
+  }
+
+  func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    for location in locations {
+      if let currentLocation = location as? CLLocation {
+        let elapsed = NSDate().timeIntervalSinceDate(currentLocation.timestamp)
+        if elapsed > 1 {
+          log.add("ignoring old location update: \(elapsed) sec ago")
+          return
+        } // process only recent timestamps
+
+        log.add("\(Log.coordToString(currentLocation)) accuracy: \(currentLocation.horizontalAccuracy)")
+      }
+    }
   }
 }
