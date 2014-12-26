@@ -113,7 +113,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     zoomToFirstRegion()
 
     iiQ.runAfterDelay(0.1) {
-      self.regionMonitor.startMonitoring()
+//      self.regionMonitor.startMonitoring()
       self.location.startUpdatingLocation()
 
       iiQ.runAfterDelay(1) {

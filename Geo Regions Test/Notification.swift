@@ -19,7 +19,7 @@ class Notification {
 
     AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
     if let currentLog = geoLog {
-      currentLog.add("!!!! \(text)")
+      currentLog.add("!!!!!!!!! \(text) !!!!!!!!!")
     }
   }
 
