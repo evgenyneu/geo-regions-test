@@ -13,6 +13,8 @@ class Location: NSObject, CLLocationManagerDelegate {
   var log: Log!
   var authorizationDidChangeCallbacks: [(()->())] = []
 
+  var locationAccuracy: CLLocationAccuracy = 10_000
+
   private var _locationManager: CLLocationManager?
 
   func setup() {
@@ -100,13 +102,10 @@ extension ExtCLLocationManagerDelegate {
   func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
     for location in locations {
       if let currentLocation = location as? CLLocation {
-        let elapsed = NSDate().timeIntervalSinceDate(currentLocation.timestamp)
-        if elapsed > 1 {
-          log.add("ignoring old location update: \(elapsed) sec ago")
-          return
-        } // process only recent timestamps
-
-        log.add("\(Log.coordToString(currentLocation)) accuracy: \(currentLocation.horizontalAccuracy)")
+        if locationAccuracy != currentLocation.horizontalAccuracy {
+          log.add("location accuracy: \(currentLocation.horizontalAccuracy)")
+          locationAccuracy = currentLocation.horizontalAccuracy
+        }
       }
     }
   }
