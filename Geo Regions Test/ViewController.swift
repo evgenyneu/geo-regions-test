@@ -25,35 +25,20 @@ class ViewController: UIViewController, MKMapViewDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    println("backgroundRefreshStatus \(UIApplication.sharedApplication().backgroundRefreshStatus.rawValue)")
-
-    self.log = Log(textView: logView)
+    log = Log(textView: logView)
+    geoLog = log
     self.location = Location(log)
     location.setup() // initialize
 
-    
     self.annotations = Annotations(mapView)
     self.regionMonitor = RegionMonitor(log,
       location: location,
       annotations: annotations)
 
-    self.location.authorizationDidChangeCallbacks.append(regionMonitor.authorizationDidChange)
 //    mapView.showsUserLocation = true
     mapView.delegate = self
-
-
-    for (name, coords) in myRegions {
-      regionMonitor.addRegion(
-        CLLocationCoordinate2D(latitude: coords[0], longitude: coords[1]),
-        id: name
-      )
-    }
-
-    regionMonitor.startMonitoring()
-    zoomToFirstRegion()
     Notification.registerNotifications()
-
-    log.add("Started")
+    startMonitoring()
   }
 
   private func zoomToFirstRegion() {
@@ -89,19 +74,47 @@ class ViewController: UIViewController, MKMapViewDelegate {
   func doInitialZoom(coordinate: CLLocationCoordinate2D) {
     if didInitiaZoom { return }
     didInitiaZoom = true
-    log.add("doInitialZoom")
     var region = MKCoordinateRegionMakeWithDistance(coordinate, 1000, 1000)
     mapView.setRegion(region, animated:false)
   }
 
   @IBAction func onRestartButtonTapped(sender: AnyObject) {
-    log.clear()
-
     restartButton.enabled = false
-    regionMonitor.stopMonitoringForAllRegions()
+    startMonitoring()
+
+    iiQ.runAfterDelay(1) {
+      self.restartButton.enabled = true
+    }
+  }
+
+  private func showAnnotations() {
+    annotations.removeAll()
+    for region in GeoRegions.regions {
+      self.annotations.add(region.center, id: region.identifier)
+    }
+  }
+
+  private func startMonitoring() {
+    // Clear
+    log.clear()
+    regionMonitor.stopMonitoring()
+    location.stopUpdatingLocation()
+    GeoRegions.clear()
+
+    // Start
+    // -------------
+
+    for (name, coords) in myRegions {
+      let coordinate = CLLocationCoordinate2D(latitude: coords[0], longitude: coords[1])
+      GeoRegions.addRegion(coordinate, id: name)
+    }
+
+    showAnnotations()
+    zoomToFirstRegion()
 
     iiQ.runAfterDelay(0.1) {
       self.regionMonitor.startMonitoring()
+      self.location.startUpdatingLocation()
 
       iiQ.runAfterDelay(1) {
         self.restartButton.enabled = true

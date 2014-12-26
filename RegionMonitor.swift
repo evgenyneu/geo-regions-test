@@ -10,7 +10,6 @@ import Foundation
 import CoreLocation
 
 class RegionMonitor {
-  var regions = [CLCircularRegion]()
   var log: Log!
   var location: Location!
   var annotations: Annotations!
@@ -23,97 +22,45 @@ class RegionMonitor {
     self.annotations = annotations
   }
 
-  func addRegion(center:CLLocationCoordinate2D, id: String) {
-    regions.append(createRegion(center, id: id))
-  }
-
-  func createRegion(center: CLLocationCoordinate2D, id: String) -> CLCircularRegion {
-    var region = CLCircularRegion(center: center,
-      radius: CLLocationDistance(100), identifier: id)
-
-    region.notifyOnEntry = true
-    region.notifyOnExit = true
-
-    return region
-  }
-
-  func stopMonitoringForAllRegions() {
-    currentRegions { regions in
-      for region in regions {
-        self.location.stopMonitoringForRegion(region)
-      }
-      self.monitoringStarted = false
+  func stopMonitoring() {
+    for region in location.monitoredRegions {
+      self.location.stopMonitoringForRegion(region)
     }
+    monitoringStarted = false
   }
 
   func startMonitoring() {
-    checkRegionMonitoringAvailability()
     if !location.authorizedOrUndetermined { return }
 
     if monitoringStarted { return }
     monitoringStarted = true
 
-    for region in regions {
+    for region in GeoRegions.regions {
       startMonitoring(region)
     }
   }
 
-  func startMonitoring(region: CLCircularRegion) {
-    isMonitoring(region) { alreadyStarted in
-      if alreadyStarted {
-        self.location.requestStateForRegion(region)
-      } else {
-        self.location.startMonitoringForRegion(region)
-      }
+  private func startMonitoring(region: CLCircularRegion) {
+    if isMonitoring(region) {
+      location.requestStateForRegion(region)
+    } else {
+      location.startMonitoringForRegion(region)
     }
   }
 
-  func isMonitoring(region: CLCircularRegion, callback: (Bool)->()) {
-    currentRegions { regions in
+  private func isMonitoring(region: CLCircularRegion) -> Bool {
+    for thisRegion in location.monitoredRegions {
+      if let currentCircularRegion = thisRegion as? CLCircularRegion {
+        if currentCircularRegion.identifier == region.identifier &&
+          currentCircularRegion.center.latitude == region.center.latitude &&
+          currentCircularRegion.center.longitude == region.center.longitude {
 
-      for currentRegion in regions {
-        if let currentCircularRegion = currentRegion as? CLCircularRegion {
-          if currentCircularRegion.identifier == region.identifier &&
-            currentCircularRegion.center.latitude == region.center.latitude &&
-            currentCircularRegion.center.longitude == region.center.longitude {
-
-            callback(true)
-            return
-          }
+          return true
         }
       }
-
-      callback(false)
     }
-  }
 
-  func showAnnotations() {
-    annotations.removeAll()
-    iiQ.runAfterDelay(1) {
-      for region in self.regions {
-        self.annotations.add(region.center, id: region.identifier)
-      }
-    }
-  }
-
-  func currentRegions(callback: ([CLRegion])->()) {
-    location.monitoredRegions(callback)
-  }
-
-  func authorizationDidChange() {
-    startMonitoring()
-
-    if location.authorizedOrUndetermined {
-      showAnnotations()
-    }
-  }
-
-  private func checkRegionMonitoringAvailability() {
-
-    let regionMonitoringAvailable = CLLocationManager.isMonitoringAvailableForClass(CLCircularRegion)
-
-    let status = regionMonitoringAvailable ? "available" : "NOT available"
-    log.add("Region monotoring available \(regionMonitoringAvailable)")
+    return false
   }
 }
 

@@ -11,35 +11,40 @@ import CoreLocation
 
 class Location: NSObject, CLLocationManagerDelegate {
   var log: Log!
-  var authorizationDidChangeCallbacks: [(()->())] = []
 
   var locationAccuracy: CLLocationAccuracy = 10_000
 
   private var _locationManager: CLLocationManager?
 
   func setup() {
-    iiQ.main { let a = self.locationManager }
+    let a = locationManager
   }
 
   func stopMonitoringForRegion(region: CLRegion) {
-    iiQ.main { self.locationManager.stopMonitoringForRegion(region) }
+    locationManager.stopMonitoringForRegion(region)
   }
 
   func startMonitoringForRegion(region: CLRegion) {
-    iiQ.main { self.locationManager.startMonitoringForRegion(region) }
+    locationManager.startMonitoringForRegion(region)
   }
 
-  func monitoredRegions(callback: ([CLRegion])->()) {
-    iiQ.main {
-      var result = [CLRegion]()
-      for region in self.locationManager.monitoredRegions {
-        if let currentRegion = region as? CLRegion {
-          result.append(currentRegion)
-        }
+  func startUpdatingLocation() {
+    locationManager.startUpdatingLocation()
+  }
 
+  func stopUpdatingLocation() {
+    locationManager.stopUpdatingLocation()
+  }
+
+  var monitoredRegions: [CLRegion] {
+    var result = [CLRegion]()
+    for region in self.locationManager.monitoredRegions {
+      if let currentRegion = region as? CLRegion {
+        result.append(currentRegion)
       }
-      callback(result)
+
     }
+    return result
   }
 
   private var locationManager: CLLocationManager {
@@ -53,8 +58,6 @@ class Location: NSObject, CLLocationManagerDelegate {
         if newManager.respondsToSelector(Selector("requestAlwaysAuthorization")) {
           newManager.requestAlwaysAuthorization()
         }
-
-        newManager.startUpdatingLocation()
       }
       return _locationManager!
     }
@@ -90,18 +93,16 @@ extension ExtCLLocationManagerDelegate {
   func locationManager(manager: CLLocationManager!,
     didChangeAuthorizationStatus status: CLAuthorizationStatus) {
 
-      let statusText = status == CLAuthorizationStatus.Authorized ? "authorized" : "NOT authorized \(CLAuthorizationStatus.Authorized.rawValue)"
+    let statusText = status == CLAuthorizationStatus.Authorized ? "authorized" : "NOT authorized \(CLAuthorizationStatus.Authorized.rawValue)"
 
-      log.add("didChangeAuthorizationStatus \(statusText)")
-      
-      for callacback in authorizationDidChangeCallbacks {
-        callacback()
-      }
+    log.add("didChangeAuthorizationStatus \(statusText)")
   }
 
   func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
     for location in locations {
       if let currentLocation = location as? CLLocation {
+        IsInsideRegion.checkIfRegionsReachedFirstNameAndNotify(currentLocation)
+
         if locationAccuracy != currentLocation.horizontalAccuracy {
           log.add("location accuracy: \(currentLocation.horizontalAccuracy)")
           locationAccuracy = currentLocation.horizontalAccuracy

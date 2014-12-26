@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import MapKit
 
+var geoLog: Log?
+
 class Log {
   var textView: UITextView!
 

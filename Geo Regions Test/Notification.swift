@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class Notification {
   class func send(text: String) {
@@ -15,6 +16,11 @@ class Notification {
     notification.alertBody = text
     notification.soundName = UILocalNotificationDefaultSoundName
     UIApplication.sharedApplication().scheduleLocalNotification(notification)
+
+    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+    if let currentLog = geoLog {
+      currentLog.add("!!!! \(text)")
+    }
   }
 
   class func registerNotifications() {
