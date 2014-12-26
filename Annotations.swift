@@ -21,7 +21,9 @@ class Annotations {
   func add(coordinate: CLLocationCoordinate2D, id: String) {
     if all[id] != nil { return }
 
-    var annotation = Annotation(centerCoordinate: coordinate, radius: 130)
+    var annotation = Annotation(centerCoordinate: coordinate,
+      radius: RegionConstants.regionRediusMeters)
+
     annotation.title = id
     all[id] = annotation
     mapView.addAnnotation(annotation)
@@ -37,7 +39,12 @@ class Annotations {
   }
 
   func removeAll() {
-    for (id, annotation) in all {
+    var idsToRemove = [String]()
+    for name in all.keys {
+      idsToRemove.append(name)
+    }
+
+    for id in idsToRemove {
       remove(id)
     }
   }
